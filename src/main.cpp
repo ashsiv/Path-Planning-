@@ -290,7 +290,7 @@ int main() {
           ptsy.push_back(next_wp1[1]);
           ptsy.push_back(next_wp2[1]);
           
-          // Transforming the waypoint path to origin and setting starting angle to zero (shift and rotation)
+          // Transforming the waypoint path to origin and set starting yaw angle to zero (shift and rotation from vehicle's cordinates to global coordinates)
           for(int i=0;i<ptsx.size();i++)
           {
             double shift_x = ptsx[i]-ref_x;
@@ -314,12 +314,13 @@ int main() {
             next_y_vals.push_back(previous_path_y[i]);
           }
           
-          // For a given target X distance calculate the target 'y' point using spline
+          // For a given target 'x' distance calculate the target 'y' point using spline
           double target_x =30.0;
           double target_y = s(target_x);
           double target_dist = sqrt((target_x)*(target_x) + (target_y)*(target_y));
           double x_add_on =0;
           
+	 // 'y' coordinates for equal incremental intervals of x coordinates (distance travelled in incremental 20ms intervals @reference velocity) are calculated and added to the waypoint path
           for(int i=1; i<=50-previous_path_x.size(); i++)
           {
             
@@ -340,7 +341,7 @@ int main() {
             x_point +=ref_x;
             y_point +=ref_y;
            
-            // Push the transformed pointsto the future path
+            // Push the transformed points to the previous path (This is the final trajectory)
            next_x_vals.push_back(x_point);
            next_y_vals.push_back(y_point);     
           }
