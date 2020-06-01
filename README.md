@@ -37,7 +37,7 @@ Action state variable initialization:
 ```
 Next, for every neighbouring car in the lidar sensor's vicinity, the associated frenet coordinates (s,d), speed of the neighbouring car are evaluated to make if lane changes to right or left is safe.
 
-Note: A 40 m safe gap distance ('s') is chosen for cars ahead and a 10 m safe gap distance is chosen for cars behind to decide if lane change to the respective lane (left or right) is safe. A 'd' distance of 6 m is used for picking cars in the vicinity (nighopuring lane).
+Note: A 40 m safe gap distance ('s') is chosen for cars ahead and a 10 m safe gap distance is chosen for cars behind to decide if lane change to the respective lane (left or right) is safe. A 'd' distance of 6 m is used for picking cars in the vicinity (neighbouring lane).
 
 ```
 // check if the neighbouring car (ahead or behind) is in proximity. (40m safe gap is chosen for front car and 10m safe gap is chosen                for car behind to do safe lane change)
