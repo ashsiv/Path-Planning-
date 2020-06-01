@@ -1,7 +1,7 @@
 # Path-Planning
 This project highlights the implementation of a path planner in C++ that safely drives a vehicle around a highway track.
 
-Successful driving around for 10 miles!
+Successful driving around for 10 miles without violations!
 ![Image cropped to region of interest](https://github.com/ashsiv/Path-Planning-/blob/master/output%20images/10%20miles.JPG)
 
 ## Project Introduction
@@ -9,12 +9,11 @@ The path planner is implemented in main.cpp file under the 'src' directory.
 
 The path planner iterates every 20ms. The input includes
 
-1. Perception data (lidar/sensor fusion) on the neighbouring vehicles.
-["sensor_fusion"] A 2d vector of cars and then that car's [car's unique ID, car's x position in map coordinates, car's y position in map coordinates, car's x velocity in m/s, car's y velocity in m/s, car's s position in frenet coordinates, car's d position in frenet coordinates. 
-2. Highway map -Each waypoint in the list contains  [x,y,s,dx,dy] values. x and y are the waypoint's map coordinate position, the s value is the distance along the road to get to that waypoint in meters, the dx and dy values define the unit normal vector pointing outward of the highway loop.
-3. Localization information
+1. **Perception data** (lidar/sensor fusion) on the neighbouring vehicles. Sensor fusion data is a 2d vector of cars and then that car's  unique ID, car's x position in map coordinates, car's y position in map coordinates, car's x velocity in m/s, car's y velocity in m/s, car's s position in frenet coordinates, car's d position in frenet coordinates etc. 
+2. **Highway map** -Each waypoint in the list contains  (x,y,s,dx,dy) values. x and y are the waypoint's map coordinate position, the s value is the distance along the road to get to that waypoint in meters, the dx and dy values define the unit normal vector pointing outward of the highway loop.
+3. **Localization** information
 
-Step 1 of the path planner involves (using the above information), determine one of the necessary actions
+**Step 1** of the path planner involves (using the above information), determine=ing one of the necessary actions
 
  * keep lane
  * lane change left
@@ -22,11 +21,11 @@ Step 1 of the path planner involves (using the above information), determine one
  * increase speed
  * decrease speed
  
-Step 2 involves defining the waypoint trajectory.
+**Step88 2 involves defining the waypoint trajectory.
 
-### Step 1: Determine Action.
+### Step 1: Determine Action
 
-Firstly if the car is in rightmost lane (lane 2) lane changes to the right are avoided. Similarly if the car is in the left most lane (lane 0), lane changes to left are avoided.
+Firstly, if the car is in rightmost lane (lane 2) lane changes to the right are avoided. Similarly if the car is in the left most lane (lane 0), lane changes to left are avoided.
 
 Action state variable initialization:
 ```
@@ -38,7 +37,7 @@ Action state variable initialization:
 ```
 Next, for every neighbouring car in the lidar sensor's vicinity, the associated frenet coordinates (s,d), speed of the neighbouring car are evaluated to make if lane changes to right or left is safe.
 
-Note: A 40 m safe gap distance ('s') is chosen for cars ahead and a 10 m safe gap distance is chosen for cars behind to decide if lane change to the respective lane (left or right) is safe. A 'd' distance of 6 m is used for picking cars in the vicinity.
+Note: A 40 m safe gap distance ('s') is chosen for cars ahead and a 10 m safe gap distance is chosen for cars behind to decide if lane change to the respective lane (left or right) is safe. A 'd' distance of 6 m is used for picking cars in the vicinity (nighopuring lane).
 
 ```
 // check if the neighbouring car (ahead or behind) is in proximity. (40m safe gap is chosen for front car and 10m safe gap is chosen                for car behind to do safe lane change)
@@ -49,11 +48,11 @@ Note: A 40 m safe gap distance ('s') is chosen for cars ahead and a 10 m safe ga
 	            	}
 
 ```
-Next a check on if car ahead in the current lane is getting too close (slowing down or braking) is determined. Based on lane change safety flags a determination to make a lane change to left or right is made.
+Next, a check on to see if car ahead in the current lane is getting too close (slowing down or braking) is determined. Based on lane change safety flags, a determination to make a lane change to left or right is made.
 
 If lane change is not safe as determined by the safety flags, speed of the vehilce is reduced to avoid collision. Care is also taken to avoid drastic reduction in speed (Jerk).
 
-If car ahead is far off / no car is ahead, the speed of the vehicle is updated to match highway speed limit (50 mph). Note: 49 mph is used as max velocity in the program to avoid accidently crossing speed limits momentarily.
+If car ahead is far off / no car is ahead, the speed of the vehicle is updated to match highway speed limit (50 mph). Note: **49 mph is used as max velocity** in the program to avoid accidently crossing speed limits momentarily.
 
 ### Step 2: Define a trajectory.
 
@@ -84,12 +83,7 @@ The waypoint path is transformed back to vehicle's coordinate system & then adde
             x_point = (x_ref*cos(ref_yaw)-y_ref*sin(ref_yaw));
             y_point = (x_ref*sin(ref_yaw)+y_ref*cos(ref_yaw));
 ```
-You can download the Term3 Simulator which contains the Path Planning Project from the [releases tab (https://github.com/udacity/self-driving-car-sim/releases/tag/T3_v1.2).  
 
-To run the simulator on Mac/Linux, first make the binary file executable with the following command:
-```shell
-sudo chmod u+x {simulator_file_name}
-```
 ## Results
 
 Using the path planner the vehcile is found to safely maneuver the enitre highway for 10 miles without any incidents (collision, jerk, max acceleration, outside the lane, crossing speed limits etc.)
@@ -98,9 +92,9 @@ Using the path planner the vehcile is found to safely maneuver the enitre highwa
 
 ![Image cropped to region of interest](https://github.com/ashsiv/Path-Planning-/blob/master/output%20images/10%20miles.JPG)
 
-As it can be seen, the vehicle safely travelled 10.03 miles in 13 minutes! For an ideal case of travelling @49mph for 13 minutes straight, the distance covered will be 10.6 miles. 
+As it can be seen, the **vehicle safely travelled 10.03 miles in 13 minutes!** For an **ideal case** of travelling @49mph for 13 minutes straight (without braking), the distance covered will be **10.6 miles**. 
 
-Thus the path planner's time/fuel efficieny is also found to be good in addition to safety.
+Thus the path planner's **time/fuel efficieny** is also found to be good in addition to safety.
 
 ---
 
