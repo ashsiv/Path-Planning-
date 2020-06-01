@@ -11,7 +11,7 @@ The path planner iterates every 20 ms. The input to the path planner includes,
 
 1. **Perception data** (lidar/sensor fusion) on the neighbouring vehicles. Sensor fusion data is a 2d vector of cars and then that car's  unique ID, car's x position in map coordinates, car's y position in map coordinates, car's x velocity in m/s, car's y velocity in m/s, car's s position in frenet coordinates, car's d position in frenet coordinates etc. 
 2. **Highway map** -Each waypoint in the list contains  (x,y,s,dx,dy) values. x and y are the waypoint's map coordinate position, the s value is the distance along the road to get to that waypoint in meters, the dx and dy values define the unit normal vector pointing outward of the highway loop.
-3. **Localization** information.
+3. **Localization** information for the vehicle. This contains car's x position in map coordinates, y position in map coordinates, car's s position in frenet coordinates, car's d position in frenet coordinates, car's yaw angle in the map & car's speed in MPH.
 
 **Step 1** of the path planner involves (using the above information), determining one of the necessary actions
 
