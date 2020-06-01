@@ -1,5 +1,5 @@
 # Path-Planning
-This project highlights the implementation of a path planner in C++ that safely drives a vehicle around a highway track.
+This project highlights the implementation of a path planner in C++ that safely drives a vehicle around a highway track with good time efficiency(speed).
 
 Successful driving around for 10 miles without violations!
 ![Image cropped to region of interest](https://github.com/ashsiv/Path-Planning-/blob/master/output%20images/10%20miles.JPG)
