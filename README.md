@@ -21,7 +21,7 @@ The path planner iterates every 20ms. The input includes
  * increase speed
  * decrease speed
  
-**Step88 2 involves defining the waypoint trajectory.
+**Step** 2 involves defining the waypoint trajectory.
 
 ### Step 1: Determine Action
 
